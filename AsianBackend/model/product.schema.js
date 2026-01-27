@@ -60,7 +60,6 @@ const ProductSchema = new Schema(
 ProductSchema.index({ title: "text", description: "text" });
 ProductSchema.index({ seller: 1, isDeleted: 1, isArchived: 1 });
 ProductSchema.index({ category: 1 });
-ProductSchema.index({ slug: 1 }, { unique: true });
 ProductSchema.index({ tags: 1 });
 
 const Product = mongoose.model("Product", ProductSchema);

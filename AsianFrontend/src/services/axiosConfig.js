@@ -49,6 +49,12 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    // Handle cancelled/aborted requests - don't log as errors
+    if (error.name === "AbortError" || error.name === "CanceledError" || error.code === "ERR_CANCELED") {
+      console.log("🚫 Request cancelled");
+      return Promise.reject(error);
+    }
+
     console.error(
       "❌ API Error:",
       error.response?.status,

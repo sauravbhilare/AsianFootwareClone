@@ -4,10 +4,10 @@ import api from "../../services/axiosConfig";
 
 // Import default images as fallback
 import banner1 from "../../assets/banner.png";
-import banner2 from "../../assets/banner.png";
-import banner3 from "../../assets/banner.png";
+// import banner2 from "../../assets/banner.png";
+// import banner3 from "../../assets/banner.png";
 
-const defaultImages = [banner1, banner2, banner3];
+const defaultImages = [banner1];
 
 function BannerSlider() {
   const [images, setImages] = useState([]);

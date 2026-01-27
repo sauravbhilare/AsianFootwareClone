@@ -1,12 +1,16 @@
-// routes/adminUpload.routes.js
 import { Router } from "express";
+import upload from "../middlewears/multerConfig.js";
 import {
-  uploadProductImages,
-  uploadBannerImage,
-  uploadCategoryImage,
-  uploadUserImage,
-} from "../middlewears/multerConfig.js";
-import { UploadBannerImage } from "../controllers/adminUpload.controllers.js";
+  UploadProductImages,
+  UploadBannerImage,
+  UploadCategoryImage,
+  UploadUserProfileImage,
+  DeleteImage,
+  BulkDeleteImages,
+  GetImageInfo,
+  GetImagesByType,
+  GetStorageStats,
+} from "../controllers/adminUpload.controllers.js";
 import tokenDecoder, {
   authorizeAdmin,
 } from "../middlewears/tokenMiddlewears.js";
@@ -22,28 +26,28 @@ adminUploadRoute.use(authorizeAdmin);
 // Upload product images (multiple)
 adminUploadRoute.post(
   "/products/images",
-  uploadProductImages.array("images", 10),
+  upload.array("images", 10),
   UploadProductImages
 );
 
 // Upload banner image (single)
 adminUploadRoute.post(
   "/banners/image",
-  uploadBannerImage.single("image"),
+  upload.single("image"),
   UploadBannerImage
 );
 
 // Upload category image (single)
 adminUploadRoute.post(
   "/categories/image",
-  uploadCategoryImage.single("image"),
+  upload.single("image"),
   UploadCategoryImage
 );
 
 // Upload user profile image (single)
 adminUploadRoute.post(
   "/users/profile-image",
-  uploadUserImage.single("image"),
+  upload.single("image"),
   UploadUserProfileImage
 );
 

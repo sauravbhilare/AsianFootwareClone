@@ -16,15 +16,18 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
-    // Determine folder based on route or field name
+    // Determine folder based on route path
     let folderName = "asian-footwear/others";
+    const url = req.url || "";
     
-    if (file.fieldname === "banner" || req.baseUrl.includes("banners")) {
+    if (url.includes("/banners")) {
       folderName = "asian-footwear/banners";
-    } else if (file.fieldname === "product" || req.baseUrl.includes("products")) {
+    } else if (url.includes("/products")) {
       folderName = "asian-footwear/products";
-    } else if (file.fieldname === "category") {
+    } else if (url.includes("/categories")) {
       folderName = "asian-footwear/categories";
+    } else if (url.includes("/users")) {
+      folderName = "asian-footwear/users";
     }
 
     return {

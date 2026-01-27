@@ -19,23 +19,21 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://asian-footware-clone.vercel.app",
   "https://*.vercel.app",
+  process.env.FRONTEND_URL, // Add from .env
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin) {
-      return callback(null, true);
-    }
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
+    // Check against allowedOrigins array
+    if (allowedOrigins.includes(origin)) return callback(null, true);
 
-    if (origin.match(/^https:\/\/asian-footware-clone.*\.vercel\.app$/)) {
-      return callback(null, true);
-    }
+    // Check for Vercel preview deployments
+    if (origin.endsWith(".vercel.app")) return callback(null, true);
 
-    console.log("CORS blocked origin:", origin);
+    console.log("🚫 CORS Blocked Origin:", origin);
     callback(new Error("Not allowed by CORS"));
   },
   credentials: true,

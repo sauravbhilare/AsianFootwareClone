@@ -39,9 +39,9 @@ const AllProducts = () => {
       priceRange: "all",
       types: params.get("type")
         ? params
-            .get("type")
-            .split(",")
-            .map((t) => t.trim())
+          .get("type")
+          .split(",")
+          .map((t) => t.trim())
         : [],
       category: params.get("category") || "",
       subCategory: params.get("subCategory") || "",
@@ -51,6 +51,11 @@ const AllProducts = () => {
   }, [location.search]);
 
   const [filters, setFilters] = useState(getInitialFilters);
+
+  // Sync state with URL if URL changes externally (e.g. clicking header links)
+  useEffect(() => {
+    setFilters(getInitialFilters());
+  }, [location.search, getInitialFilters]);
 
   // Update URL without triggering re-render loop
   const updateURL = useCallback((currentFilters) => {
@@ -162,8 +167,8 @@ const AllProducts = () => {
       console.error("Error fetching products:", err);
       setError(
         err.response?.data?.message ||
-          err.message ||
-          "Failed to fetch products. Please try again."
+        err.message ||
+        "Failed to fetch products. Please try again."
       );
     } finally {
       setIsLoading(false);
@@ -285,8 +290,8 @@ const AllProducts = () => {
       filters.gender === "Men"
         ? "Men's"
         : filters.gender === "Women"
-        ? "Women's"
-        : filters.gender;
+          ? "Women's"
+          : filters.gender;
 
     if (filters.types.length > 0) {
       return `${genderDisplay} ${filters.types.join(", ")}`;
@@ -349,17 +354,15 @@ const AllProducts = () => {
           </span>
           <FontAwesomeIcon
             icon={isFilterOpen ? faTimes : faFilter}
-            className={`${styles.filterIcon} ${
-              isFilterOpen ? styles.open : ""
-            }`}
+            className={`${styles.filterIcon} ${isFilterOpen ? styles.open : ""
+              }`}
           />
         </div>
 
         {/* LEFT FILTER SIDEBAR */}
         <div
-          className={`${styles.sidebar} ${
-            isFilterOpen ? styles.sidebarOpen : ""
-          }`}
+          className={`${styles.sidebar} ${isFilterOpen ? styles.sidebarOpen : ""
+            }`}
         >
           <Filters
             onGenderChange={handleGenderChange}
@@ -468,9 +471,8 @@ const AllProducts = () => {
                       .map((page) => (
                         <button
                           key={page}
-                          className={`${styles.pageButton} ${
-                            filters.page === page ? styles.activePage : ""
-                          }`}
+                          className={`${styles.pageButton} ${filters.page === page ? styles.activePage : ""
+                            }`}
                           onClick={() => handlePageChange(page)}
                           disabled={isLoading}
                         >

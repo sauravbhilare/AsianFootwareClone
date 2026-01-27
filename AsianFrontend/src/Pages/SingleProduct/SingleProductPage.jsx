@@ -127,6 +127,7 @@ const SingleProductPage = () => {
       <div className={styles.pageContainer}>
         <div className={styles.contentWrapper}>
           <ImageGallery
+            key={selectedColorIndex}
             images={transformedProduct.images}
             variants={transformedProduct.variants}
             selectedColorIndex={selectedColorIndex} // NEW: Pass state

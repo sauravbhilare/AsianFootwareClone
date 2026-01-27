@@ -9,6 +9,10 @@ import {
 
 const wishlistRouter = express.Router();
 
+import tokenDecoder from "../middlewears/tokenMiddlewears.js";
+
+wishlistRouter.use(tokenDecoder);
+
 // Add to wishlist
 wishlistRouter.post("/addWishlistItem", addWishlistItem);
 

@@ -158,7 +158,7 @@ export const store = configureStore({
 });
 
 // ✅ Log Redux state changes (development only)
-if (process.env.NODE_ENV === "development") {
+if (import.meta.env.MODE === "development") {
   store.subscribe(() => {
     const state = store.getState();
     console.log("🔄 Redux State Updated:", {

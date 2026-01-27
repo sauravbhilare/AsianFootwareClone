@@ -217,9 +217,8 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
 
         {/* Status Badge */}
         <span
-          className={`${styles.bannerBadge} ${styles.statusBadge} ${
-            banner.isActive ? styles.statusActive : styles.statusInactive
-          }`}
+          className={`${styles.bannerBadge} ${styles.statusBadge} ${banner.isActive ? styles.statusActive : styles.statusInactive
+            }`}
         >
           {banner.isActive ? "Active" : "Inactive"}
         </span>
@@ -282,11 +281,10 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
 
         <button
           onClick={() => handleToggleStatus(banner._id)}
-          className={`${styles.actionButtonToggle} ${
-            banner.isActive
+          className={`${styles.actionButtonToggle} ${banner.isActive
               ? styles.actionButtonToggleActive
               : styles.actionButtonToggleInactive
-          }`}
+            }`}
           title={banner.isActive ? "Deactivate" : "Activate"}
         >
           {banner.isActive ? (
@@ -338,9 +336,8 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
       </td>
       <td className={`${styles.tableCell} ${styles.tableCellCenter}`}>
         <span
-          className={`${styles.bannerBadge} ${
-            banner.isActive ? styles.statusActive : styles.statusInactive
-          }`}
+          className={`${styles.bannerBadge} ${banner.isActive ? styles.statusActive : styles.statusInactive
+            }`}
         >
           {banner.isActive ? "Active" : "Inactive"}
         </span>
@@ -382,11 +379,10 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
           </button>
           <button
             onClick={() => handleToggleStatus(banner._id)}
-            className={`${styles.tableActionButton} ${
-              banner.isActive
+            className={`${styles.tableActionButton} ${banner.isActive
                 ? styles.actionButtonToggleActive
                 : styles.actionButtonToggleInactive
-            }`}
+              }`}
             title={banner.isActive ? "Deactivate" : "Activate"}
           >
             {banner.isActive ? (
@@ -500,17 +496,15 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
             <div className={styles.viewModeToggle}>
               <button
                 onClick={() => setViewMode("grid")}
-                className={`${styles.viewModeButton} ${
-                  viewMode === "grid" ? styles.viewModeButtonActive : ""
-                }`}
+                className={`${styles.viewModeButton} ${viewMode === "grid" ? styles.viewModeButtonActive : ""
+                  }`}
               >
                 <Grid className={styles.viewModeIcon} />
               </button>
               <button
                 onClick={() => setViewMode("list")}
-                className={`${styles.viewModeButton} ${
-                  viewMode === "list" ? styles.viewModeButtonActive : ""
-                }`}
+                className={`${styles.viewModeButton} ${viewMode === "list" ? styles.viewModeButtonActive : ""
+                  }`}
               >
                 <List className={styles.viewModeIcon} />
               </button>
@@ -523,9 +517,8 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
               title="Refresh"
             >
               <RefreshCw
-                className={`${styles.refreshIcon} ${
-                  loading ? styles.refreshIconSpinning : ""
-                }`}
+                className={`${styles.refreshIcon} ${loading ? styles.refreshIconSpinning : ""
+                  }`}
               />
             </button>
           </div>
@@ -641,9 +634,8 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
                 <button
                   key={pageNum}
                   onClick={() => setCurrentPage(pageNum)}
-                  className={`${styles.paginationButton} ${
-                    currentPage === pageNum ? styles.paginationButtonActive : ""
-                  }`}
+                  className={`${styles.paginationButton} ${currentPage === pageNum ? styles.paginationButtonActive : ""
+                    }`}
                 >
                   {pageNum}
                 </button>
@@ -777,11 +769,10 @@ const ViewBanners = ({ setActiveMenu, setSelectedBannerId }) => {
                     <span className={styles.previewLabel}>Status</span>
                     <p>
                       <span
-                        className={`${styles.bannerBadge} ${
-                          previewModal.banner.isActive
+                        className={`${styles.bannerBadge} ${previewModal.banner.isActive
                             ? styles.statusActive
                             : styles.statusInactive
-                        }`}
+                          }`}
                       >
                         {previewModal.banner.isActive ? "Active" : "Inactive"}
                       </span>

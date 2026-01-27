@@ -165,11 +165,38 @@ const GetAllProducts = async (req, res) => {
         );
       });
       if (typeConditions.length > 0) {
-        query.$or = query.$or
-          ? [...query.$or, ...typeConditions]
-          : typeConditions;
+        // Use $and if $or already exists (e.g. from search), otherwise set $or
+        if (query.$or) {
+          query.$and = [
+            { $or: query.$or },
+            { $or: typeConditions }
+          ];
+          delete query.$or; // Move existing $or to inside $and
+        } else {
+          query.$or = typeConditions;
+        }
       }
     }
+
+    // Apply Size Filter (Database Level)
+    if (sizes) {
+      const sizeArray = sizes.split(",").map((s) => s.trim());
+      // Match products where ANY variant has ANY of the specified sizes
+      query["variants.sizes.size"] = { $in: sizeArray };
+    }
+
+    // Apply Color Filter (Database Level)
+    if (colors) {
+      const colorArray = colors.split(",").map((c) => c.trim());
+      // Case-insensitive color matching using Regex
+      const colorRegexArray = colorArray.map((c) => new RegExp(`^${c}$`, "i"));
+      query["variants.colorName"] = { $in: colorRegexArray };
+    }
+
+    // Apply Discount Filter (Database Level - requires aggregation or storing discount, but for now we keep JS filter as fallback OR try strict query if MRP exists)
+    // Note: Discount relies on calculation (mrp - selling)/mrp. Hard to query without calculated field.
+    // We will keep discount as post-filter but it should ideally be pre-calculated.
+
 
     console.log("MongoDB Query:", JSON.stringify(query, null, 2));
 
@@ -197,53 +224,8 @@ const GetAllProducts = async (req, res) => {
 
     console.log(`Found ${products.length} products before post-filtering`);
 
-    // Apply size filter manually if needed
-    if (sizes) {
-      const sizeArray = sizes.split(",").map((s) => s.trim());
-      products = products.filter((product) => {
-        if (!product.variants || !Array.isArray(product.variants)) {
-          return false;
-        }
-        return product.variants.some((variant) => {
-          if (!variant.sizes || !Array.isArray(variant.sizes)) {
-            return false;
-          }
-          return variant.sizes.some((size) => {
-            if (!size || !size.size) return false;
-            if (sizeArray.includes(size.size)) {
-              if (inStock === "true") {
-                return size.stock > 0;
-              }
-              return true;
-            }
-            return false;
-          });
-        });
-      });
-    }
-
-    // Apply color filter manually if needed
-    if (colors) {
-      const colorArray = colors.split(",").map((c) => c.trim().toLowerCase());
-      products = products.filter((product) => {
-        if (!product.variants || !Array.isArray(product.variants)) {
-          return false;
-        }
-        return product.variants.some((variant) => {
-          if (!variant.colorName) return false;
-          if (colorArray.includes(variant.colorName.toLowerCase())) {
-            if (inStock === "true") {
-              if (!variant.sizes || !Array.isArray(variant.sizes)) {
-                return false;
-              }
-              return variant.sizes.some((size) => size && size.stock > 0);
-            }
-            return true;
-          }
-          return false;
-        });
-      });
-    }
+    // Size and Color filters are now applied in DB query above.
+    // We removed the post-fetch JS filtering for them to ensure pagination works correctly.
 
     // Apply stock filter - BUT skip if inStock is false or not specified properly
     // Since your products may not have stock info, let's be lenient
@@ -285,8 +267,8 @@ const GetAllProducts = async (req, res) => {
       const discountPercentage =
         product.mrp && product.sellingPrice
           ? Math.round(
-              ((product.mrp - product.sellingPrice) / product.mrp) * 100
-            )
+            ((product.mrp - product.sellingPrice) / product.mrp) * 100
+          )
           : 0;
 
       // Get thumbnail image safely
@@ -509,8 +491,8 @@ const GetProductsByCategory = async (req, res) => {
       const discountPercentage =
         product.mrp && product.sellingPrice
           ? Math.round(
-              ((product.mrp - product.sellingPrice) / product.mrp) * 100
-            )
+            ((product.mrp - product.sellingPrice) / product.mrp) * 100
+          )
           : 0;
 
       const thumbnailImage = product.variants?.[0]?.images?.[0] || null;
@@ -564,8 +546,8 @@ const GetProductsByGender = async (req, res) => {
       const discountPercentage =
         product.mrp && product.sellingPrice
           ? Math.round(
-              ((product.mrp - product.sellingPrice) / product.mrp) * 100
-            )
+            ((product.mrp - product.sellingPrice) / product.mrp) * 100
+          )
           : 0;
 
       const thumbnailImage = product.variants?.[0]?.images?.[0] || null;

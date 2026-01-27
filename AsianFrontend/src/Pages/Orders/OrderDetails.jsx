@@ -1,5 +1,5 @@
 // OrderDetails.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   FiArrowLeft,
@@ -33,11 +33,7 @@ const OrderDetails = () => {
   const [error, setError] = useState(null);
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    fetchOrder();
-  }, [orderId]);
-
-  const fetchOrder = async () => {
+  const fetchOrder = useCallback(async () => {
     try {
       setLoading(true);
       const response = await api.get(`/product/getOrderById/${orderId}`);
@@ -52,7 +48,11 @@ const OrderDetails = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [orderId]);
+
+  useEffect(() => {
+    fetchOrder();
+  }, [fetchOrder]);
 
   const copyOrderId = () => {
     navigator.clipboard.writeText(order?.orderId);
@@ -221,9 +221,8 @@ const OrderDetails = () => {
               <div
                 className={styles.trackingProgress}
                 style={{
-                  width: `${
-                    (trackingSteps.filter((s) => s.completed).length - 1) * 25
-                  }%`,
+                  width: `${(trackingSteps.filter((s) => s.completed).length - 1) * 25
+                    }%`,
                 }}
               />
             </div>
@@ -231,9 +230,8 @@ const OrderDetails = () => {
               {trackingSteps.map((step, index) => (
                 <div
                   key={step.key}
-                  className={`${styles.trackingStep} ${
-                    step.completed ? styles.completed : ""
-                  } ${step.current ? styles.current : ""}`}
+                  className={`${styles.trackingStep} ${step.completed ? styles.completed : ""
+                    } ${step.current ? styles.current : ""}`}
                 >
                   <div className={styles.stepIcon}>
                     <step.icon size={16} />

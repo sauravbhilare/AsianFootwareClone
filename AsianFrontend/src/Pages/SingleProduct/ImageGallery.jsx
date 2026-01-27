@@ -17,10 +17,7 @@ const ImageGallery = ({ images, variants = [], selectedColorIndex = 0 }) => {
 
   const currentVariantImages = getImagesForVariant(selectedColorIndex);
 
-  // Reset image index when color changes
-  useEffect(() => {
-    setSelectedImageIndex(0);
-  }, [selectedColorIndex]);
+
 
   // Handle mouse move for zoom position - FIXED
   const handleMouseMove = (e) => {
@@ -79,9 +76,8 @@ const ImageGallery = ({ images, variants = [], selectedColorIndex = 0 }) => {
           {currentVariantImages.map((img, index) => (
             <div
               key={`${selectedColorIndex}-${index}`}
-              className={`${styles.thumbnailWrapper} ${
-                index === selectedImageIndex ? styles.selected : ""
-              }`}
+              className={`${styles.thumbnailWrapper} ${index === selectedImageIndex ? styles.selected : ""
+                }`}
               onClick={() => setSelectedImageIndex(index)}
             >
               <img
@@ -140,9 +136,8 @@ const ImageGallery = ({ images, variants = [], selectedColorIndex = 0 }) => {
 
         {/* Zoom indicator icon */}
         <div
-          className={`${styles.zoomIndicator} ${
-            isZoomed ? styles.zoomActive : ""
-          }`}
+          className={`${styles.zoomIndicator} ${isZoomed ? styles.zoomActive : ""
+            }`}
         >
           <svg
             width="20"

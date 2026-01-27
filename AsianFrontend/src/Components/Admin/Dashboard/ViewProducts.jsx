@@ -301,8 +301,8 @@ const ViewProducts = ({
               {filterType === "pending"
                 ? "Products Pending Approval"
                 : filterType === "featured"
-                ? "Featured Products"
-                : "Manage all products"}
+                  ? "Featured Products"
+                  : "Manage all products"}
             </p>
           </div>
         </div>
@@ -372,9 +372,8 @@ const ViewProducts = ({
           <FiFilter size={16} />
           <span>Category:</span>
           <button
-            className={`${styles.filterBtn} ${
-              categoryFilter === "all" ? styles.active : ""
-            }`}
+            className={`${styles.filterBtn} ${categoryFilter === "all" ? styles.active : ""
+              }`}
             onClick={() => handleCategoryFilter("all")}
           >
             All
@@ -382,9 +381,8 @@ const ViewProducts = ({
           {categories.slice(0, 3).map((cat) => (
             <button
               key={cat._id}
-              className={`${styles.filterBtn} ${
-                categoryFilter === cat.name ? styles.active : ""
-              }`}
+              className={`${styles.filterBtn} ${categoryFilter === cat.name ? styles.active : ""
+                }`}
               onClick={() => handleCategoryFilter(cat.name)}
             >
               {cat.name}
@@ -395,25 +393,22 @@ const ViewProducts = ({
         <div className={styles.filterGroup}>
           <span>Status:</span>
           <button
-            className={`${styles.filterBtn} ${
-              statusFilter === "all" ? styles.active : ""
-            }`}
+            className={`${styles.filterBtn} ${statusFilter === "all" ? styles.active : ""
+              }`}
             onClick={() => handleStatusFilter("all")}
           >
             All
           </button>
           <button
-            className={`${styles.filterBtn} ${
-              statusFilter === "active" ? styles.active : ""
-            }`}
+            className={`${styles.filterBtn} ${statusFilter === "active" ? styles.active : ""
+              }`}
             onClick={() => handleStatusFilter("active")}
           >
             Active
           </button>
           <button
-            className={`${styles.filterBtn} ${
-              statusFilter === "archived" ? styles.active : ""
-            }`}
+            className={`${styles.filterBtn} ${statusFilter === "archived" ? styles.active : ""
+              }`}
             onClick={() => handleStatusFilter("archived")}
           >
             Archived
@@ -527,13 +522,12 @@ const ViewProducts = ({
                     </td>
                     <td>
                       <span
-                        className={`${styles.stockBadge} ${
-                          getTotalStock(product) === 0
+                        className={`${styles.stockBadge} ${getTotalStock(product) === 0
                             ? styles.outOfStock
                             : getTotalStock(product) < 10
-                            ? styles.lowStock
-                            : styles.inStock
-                        }`}
+                              ? styles.lowStock
+                              : styles.inStock
+                          }`}
                       >
                         {getTotalStock(product)}
                       </span>
@@ -553,9 +547,8 @@ const ViewProducts = ({
                     <td>
                       <div className={styles.statusCell}>
                         <span
-                          className={`${styles.statusBadge} ${
-                            product.isArchived ? styles.archived : styles.active
-                          }`}
+                          className={`${styles.statusBadge} ${product.isArchived ? styles.archived : styles.active
+                            }`}
                         >
                           {product.isArchived ? "Archived" : "Active"}
                         </span>
@@ -646,9 +639,8 @@ const ViewProducts = ({
               <div className={styles.detailRow}>
                 <strong>Status:</strong>
                 <span
-                  className={`${styles.statusBadge} ${
-                    selectedProduct.isArchived ? styles.archived : styles.active
-                  }`}
+                  className={`${styles.statusBadge} ${selectedProduct.isArchived ? styles.archived : styles.active
+                    }`}
                 >
                   {selectedProduct.isArchived ? "Archived" : "Active"}
                 </span>

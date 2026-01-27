@@ -12,13 +12,7 @@ export const UploadProductImages = async (req, res) => {
       });
     }
 
-    const protocol =
-      process.env.NODE_ENV === "production" ? "https" : req.protocol;
-    const host = req.get("host");
-
-    const imageUrls = req.files.map(
-      (file) => `${protocol}://${host}/uploads/products/${file.filename}`
-    );
+    const imageUrls = req.files.map((file) => file.path);
 
     console.log(`✅ Uploaded ${req.files.length} product images`);
 
@@ -48,11 +42,7 @@ export const UploadBannerImage = async (req, res) => {
       });
     }
 
-    const protocol =
-      process.env.NODE_ENV === "production" ? "https" : req.protocol;
-    const host = req.get("host");
-
-    const imageUrl = `${protocol}://${host}/uploads/banners/${req.file.filename}`;
+    const imageUrl = req.file.path;
 
     console.log(`✅ Uploaded banner image: ${req.file.filename}`);
 
@@ -82,11 +72,7 @@ export const UploadCategoryImage = async (req, res) => {
       });
     }
 
-    const protocol =
-      process.env.NODE_ENV === "production" ? "https" : req.protocol;
-    const host = req.get("host");
-
-    const imageUrl = `${protocol}://${host}/uploads/categories/${req.file.filename}`;
+    const imageUrl = req.file.path;
 
     console.log(`✅ Uploaded category image: ${req.file.filename}`);
 
@@ -116,11 +102,7 @@ export const UploadUserProfileImage = async (req, res) => {
       });
     }
 
-    const protocol =
-      process.env.NODE_ENV === "production" ? "https" : req.protocol;
-    const host = req.get("host");
-
-    const imageUrl = `${protocol}://${host}/uploads/users/${req.file.filename}`;
+    const imageUrl = req.file.path;
 
     console.log(`✅ Uploaded user profile image: ${req.file.filename}`);
 

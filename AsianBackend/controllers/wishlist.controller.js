@@ -21,7 +21,8 @@ const toObjectId = (id) => {
 // POST /api/wishlist/addWishlistItem
 export const addWishlistItem = async (req, res) => {
   try {
-    const { userId, productId, color, image } = req.body; // ADD image HERE
+    const { productId, color, image } = req.body; // ADD image HERE
+    const userId = req.userId;
 
     console.log("Add to wishlist request:", {
       userId,
@@ -33,7 +34,7 @@ export const addWishlistItem = async (req, res) => {
     if (!userId || !productId) {
       return res
         .status(400)
-        .json({ message: "userId and productId are required" });
+        .json({ message: "productId is required" });
     }
 
     const userObjectId = toObjectId(userId);
@@ -109,7 +110,8 @@ export const addWishlistItem = async (req, res) => {
 export const deleteWishlistItem = async (req, res) => {
   try {
     const { productId } = req.params;
-    const { userId, color } = req.body;
+    const { color } = req.body;
+    const userId = req.userId;
 
     console.log("Delete from wishlist request:", { userId, productId, color });
 
@@ -155,7 +157,7 @@ export const deleteWishlistItem = async (req, res) => {
 // GET /api/wishlist?userId=...
 export const getUserWishlist = async (req, res) => {
   try {
-    const { userId } = req.query;
+    const userId = req.userId;
 
     if (!userId) {
       return res.status(400).json({ message: "userId is required" });
@@ -182,7 +184,8 @@ export const getUserWishlist = async (req, res) => {
 // Check if item is in wishlist
 export const checkWishlistItem = async (req, res) => {
   try {
-    const { userId, productId } = req.query;
+    const { productId } = req.query;
+    const userId = req.userId;
 
     if (!userId || !productId) {
       return res.status(400).json({ isInWishlist: false });

@@ -320,7 +320,7 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
 
       setSubmitError(
         err.response?.data?.message ||
-          `Failed to ${isEditMode ? "update" : "create"} banner`
+        `Failed to ${isEditMode ? "update" : "create"} banner`
       );
     } finally {
       setLoading(false);
@@ -430,9 +430,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                 </div>
               ) : (
                 <div
-                  className={`${styles.dropzone} ${
-                    isDragging ? styles.dropzoneDragging : ""
-                  } ${errors.image ? styles.dropzoneError : ""}`}
+                  className={`${styles.dropzone} ${isDragging ? styles.dropzoneDragging : ""
+                    } ${errors.image ? styles.dropzoneError : ""}`}
                   onDragEnter={handleDragEnter}
                   onDragLeave={handleDragLeave}
                   onDragOver={handleDragOver}
@@ -440,9 +439,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                   onClick={() => fileInputRef.current?.click()}
                 >
                   <Upload
-                    className={`${styles.dropzoneIcon} ${
-                      isDragging ? styles.dropzoneIconDragging : ""
-                    }`}
+                    className={`${styles.dropzoneIcon} ${isDragging ? styles.dropzoneIconDragging : ""
+                      }`}
                   />
                   <p className={styles.dropzoneText}>
                     <span className={styles.dropzoneTextHighlight}>
@@ -510,9 +508,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                     value={formData.title}
                     onChange={handleInputChange}
                     placeholder="Enter banner title"
-                    className={`${styles.input} ${
-                      errors.title ? styles.inputError : ""
-                    }`}
+                    className={`${styles.input} ${errors.title ? styles.inputError : ""
+                      }`}
                     maxLength={100}
                     disabled={loading}
                   />
@@ -543,9 +540,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                     onChange={handleInputChange}
                     placeholder="Enter banner subtitle (optional)"
                     rows={3}
-                    className={`${styles.input} ${styles.textarea} ${
-                      errors.subtitle ? styles.inputError : ""
-                    }`}
+                    className={`${styles.input} ${styles.textarea} ${errors.subtitle ? styles.inputError : ""
+                      }`}
                     maxLength={200}
                     disabled={loading}
                   />
@@ -579,9 +575,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                     value={formData.link}
                     onChange={handleInputChange}
                     placeholder="https://example.com/page or /category/shoes"
-                    className={`${styles.input} ${
-                      errors.link ? styles.inputError : ""
-                    }`}
+                    className={`${styles.input} ${errors.link ? styles.inputError : ""
+                      }`}
                     disabled={loading}
                   />
                   {errors.link && (
@@ -612,9 +607,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                       value={formData.order}
                       onChange={handleInputChange}
                       min="0"
-                      className={`${styles.input} ${
-                        errors.order ? styles.inputError : ""
-                      }`}
+                      className={`${styles.input} ${errors.order ? styles.inputError : ""
+                        }`}
                       disabled={loading}
                     />
                     {errors.order && (
@@ -639,9 +633,8 @@ const AddBanners = ({ setActiveMenu, selectedBannerId }) => {
                           isActive: !prev.isActive,
                         }))
                       }
-                      className={`${styles.toggleButton} ${
-                        formData.isActive ? styles.toggleButtonActive : ""
-                      }`}
+                      className={`${styles.toggleButton} ${formData.isActive ? styles.toggleButtonActive : ""
+                        }`}
                       disabled={loading}
                     >
                       <div className={styles.toggleContent}>

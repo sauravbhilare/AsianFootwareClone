@@ -91,8 +91,7 @@ function App() {
     if (!user && storedToken) {
       getUserData();
     }
-    // ✅ If no token, do nothing - allow public browsing
-  }, []); // Only run once on mount
+  }, [user]); // Added user to dependency array as it's used inside
 
   return (
     <BrowserRouter>
@@ -116,9 +115,31 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* ==================== SELLER PAGES - PROTECTED ==================== */}
-          <Route path="/seller-dash" element={<Dashboard />} />
-          <Route path="/getSellerProducts" element={<SellerProducts />} />
-          <Route path="/getsellerOrders" element={<SellerOrders />} />
+          {/* ==================== SELLER PAGES - PROTECTED ==================== */}
+          <Route
+            path="/seller-dash"
+            element={
+              <ProtectedRoute allowedRoles={["seller"]}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/getSellerProducts"
+            element={
+              <ProtectedRoute allowedRoles={["seller"]}>
+                <SellerProducts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/getsellerOrders"
+            element={
+              <ProtectedRoute allowedRoles={["seller"]}>
+                <SellerOrders />
+              </ProtectedRoute>
+            }
+          />
 
           {/* ==================== ADMIN PAGES - PROTECTED ==================== */}
           <Route
@@ -135,17 +156,65 @@ function App() {
           <Route path="/product/:id" element={<SingleProductPage />} />
 
           {/* ==================== USER PAGES - PROTECTED ==================== */}
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/checkout" element={<InstantCheckout />} />
+          {/* ==================== USER PAGES - PROTECTED ==================== */}
+          <Route
+            path="/wishlist"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <Wishlist />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <CartPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <InstantCheckout />
+              </ProtectedRoute>
+            }
+          />
 
           {/* ==================== ORDER PAGES - PROTECTED ==================== */}
-          <Route path="/orders" element={<MyOrders />} />
-          <Route path="/order/:orderId" element={<OrderDetails />} />
+          {/* ==================== ORDER PAGES - PROTECTED ==================== */}
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <MyOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:orderId"
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <OrderDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/order-confirmation/:orderId"
-            element={<OrderConfirmation />}
+            element={
+              <ProtectedRoute allowedRoles={["user", "seller", "admin"]}>
+                <OrderConfirmation />
+              </ProtectedRoute>
+            }
           />
 
           {/* ==================== 404 NOT FOUND ==================== */}

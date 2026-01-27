@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../../services/axiosConfig.js";
 import { logout } from "../../../Redux/userStore";
 import ProfileModal from "../../../Modals/ProfileModal.jsx";
+import { FaUserCircle, FaUser, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
 
 const TopBar = () => {
   const user = useSelector((state) => state.user.userInfo);
@@ -76,7 +77,7 @@ const TopBar = () => {
           onClick={toggleDropdown}
         >
           <div className={styles["user-icon"]}>
-            <i className="fas fa-user-circle"></i>
+            <FaUserCircle size={24} />
           </div>
 
           <span className={styles["user-name"]}>
@@ -91,15 +92,15 @@ const TopBar = () => {
               {user && user.userId ? (
                 <>
                   <button onClick={handleProfileClick}>
-                    <i className="fas fa-user"></i> Profile
+                    <FaUser /> Profile
                   </button>
                   <button onClick={handleLogout}>
-                    <i className="fas fa-sign-out-alt"></i> Logout
+                    <FaSignOutAlt /> Logout
                   </button>
                 </>
               ) : (
                 <button onClick={handleLogin}>
-                  <i className="fas fa-sign-in-alt"></i> Login
+                  <FaSignInAlt /> Login
                 </button>
               )}
             </div>
